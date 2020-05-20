@@ -6,13 +6,14 @@ import deathStar from 'assets/images/deathStar.svg';
 
 const Wrapper = styled.nav`
     position: fixed;
-    top: 0%;
     left: 0%;
+    bottom: 0%;
     width: 100%;
     color: ${({ theme }) => theme.color.brand[0]};
     font-size: ${({ theme }) => theme.fs.l};
     ${({ theme }) => theme.mediaQuery.md} {
         width: 250px;
+        bottom: auto;
         top: 50%;
         font-size: ${({ theme }) => theme.fs.xl};
     }
@@ -31,7 +32,7 @@ const ListElement = styled.li`
 `;
 const StyledLink = styled(Link)`
     display: block;
-    padding: 15px 0px;
+    padding: 25px 0px;
     text-align: center;
     text-decoration: none;
     color: inherit;
@@ -40,14 +41,11 @@ const StyledLink = styled(Link)`
     }
 `;
 const BackgroundImage = styled.img`
+    display: none;
     position: fixed;
-    width: 100%;
-    bottom: 87%;
-    left: 50%;
-    transform: translate(-50%, 0%) rotate(130deg);
     z-index: -1;
     ${({ theme }) => theme.mediaQuery.md} {
-        width: auto;
+        display: block;
         height: 100%;
         left: 0%;
         bottom: 50%;

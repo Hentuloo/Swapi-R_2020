@@ -4,7 +4,6 @@ import { MemoizedNavigation } from 'components/Navigation';
 
 const Wrapper = styled.div`
     display: grid;
-    grid-template-rows: 100px 1fr;
     ${({ theme }) => theme.mediaQuery.md} {
         grid-template-columns: 300px 1fr;
     }
@@ -17,7 +16,7 @@ export const MainLayout: FC<MainLayoutProps> = ({ children, ...props }) => {
         <Wrapper {...props}>
             <MemoizedNavigation />
             <div></div>
-            {children}
+            <div>{children}</div>
         </Wrapper>
     );
 };
