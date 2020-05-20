@@ -4,4 +4,8 @@ export const Constants = {
 export const QueryKeys = {
     characters: 'characters',
     character: (id: number | string) => `characters-${id}`,
+    vehicles: 'vehicles',
+    vehicle: (id: number | string) => `vehicles-${id}`,
+    planets: 'planets',
+    planet: (id: number | string) => `planets-${id}`,
 };

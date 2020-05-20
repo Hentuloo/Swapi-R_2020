@@ -4,6 +4,7 @@ import { MemoizedNavigation } from 'components/Navigation';
 
 const Wrapper = styled.div`
     display: grid;
+    min-height: 100vh;
     ${({ theme }) => theme.mediaQuery.md} {
         grid-template-columns: 300px 1fr;
     }
