@@ -1,5 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 import starsPattern from 'assets/images/starsPattern.svg';
+import basicCursor from 'assets/images/basicCursor.svg';
+import redCursor from 'assets/images/redCursor.svg';
 
 export default createGlobalStyle`
  html {
@@ -17,6 +19,7 @@ body {
     color:  ${({ theme }) => theme.color.brand[0]}; 
     background-color: ${({ theme }) => theme.color.black[0]}; 
     background-image: url(${starsPattern});
+    cursor: url(${basicCursor}), auto;	
 
     ${({ theme }) => theme.mediaQuery.md}{
          font-size: 1.4rem;
@@ -68,5 +71,8 @@ ul {
     ${({ theme }) => theme.mediaQuery.md} {
         display:none;
     }
+}
+button,a{
+    cursor: url(${redCursor}), auto;	
 }
 `;
