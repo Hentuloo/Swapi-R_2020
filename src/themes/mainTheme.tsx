@@ -2,7 +2,7 @@ const theme = {
     color: {
         brand: ['#F4D327'],
         white: ['rgb(255, 255, 255)', 'rgba(225, 225, 225, 1)'],
-        black: ['#2F2E2E', '#2B2B2B', '#323232'],
+        black: ['#000', '#2B2B2B', '#323232'],
         gray: ['#4A4A4A'],
     },
     mediaQuery: {
@@ -28,8 +28,8 @@ const theme = {
         xxxl: '2.3em',
         large: '2.8em',
     },
-    fw: [400, 700],
-    ff: [`Squada One`],
+    fw: [400, 800],
+    ff: [`'Open Sans', sans-serif`],
 };
 
 export default theme;

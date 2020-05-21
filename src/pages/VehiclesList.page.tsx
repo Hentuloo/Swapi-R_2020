@@ -6,7 +6,7 @@ import { QueryKeys } from 'config/Constants';
 import { getItemIdFromUrl, getSwapiVehicles } from 'config/helpers';
 import { SwapiVehicle } from 'types/swapi';
 import { LabelsListItem } from 'components/LabelsList';
-import { ItemsList } from 'components/ItemsList';
+import { CustomItemsList } from 'components/CustomItemsList';
 
 const Wrapper = styled.div`
     height: 100%;
@@ -39,7 +39,7 @@ export const VehiclesList: FC<VehiclesListProps> = ({ ...props }) => {
     return (
         <MainLayout>
             <Wrapper {...props}>
-                <ItemsList items={vehicles} />
+                <CustomItemsList items={vehicles} />
             </Wrapper>
         </MainLayout>
     );

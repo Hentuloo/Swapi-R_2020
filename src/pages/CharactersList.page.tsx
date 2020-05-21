@@ -6,7 +6,8 @@ import { QueryKeys } from 'config/Constants';
 import { getSwapiCharacters, getItemIdFromUrl } from 'config/helpers';
 import { SwapiCharacter } from 'types/swapi';
 import { LabelsListItem } from 'components/LabelsList';
-import { ItemsList } from 'components/ItemsList';
+import { CustomItemsList } from 'components/CustomItemsList';
+import characterImage from 'assets/images/characters/1.jpg';
 
 const Wrapper = styled.div`
     height: 100%;
@@ -30,7 +31,7 @@ export const CharactersList: FC<CharactersListProps> = ({ ...props }) => {
             return {
                 id,
                 title: name,
-                image: 'https://source.unsplash.com/random/150x150',
+                image: characterImage,
                 to: `/characters/${id}`,
             };
         },
@@ -38,7 +39,7 @@ export const CharactersList: FC<CharactersListProps> = ({ ...props }) => {
     return (
         <MainLayout {...props}>
             <Wrapper>
-                <ItemsList items={characters} />
+                <CustomItemsList items={characters} />
             </Wrapper>
         </MainLayout>
     );

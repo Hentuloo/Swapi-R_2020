@@ -2,33 +2,36 @@ import React, { FC, memo } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Routes } from 'config/Routes';
-import deathStar from 'assets/images/deathStar.svg';
+import StarWars from 'assets/images/StarWars.svg';
 
 const Wrapper = styled.nav`
     position: fixed;
     left: 0%;
     bottom: 0%;
     width: 100%;
-    color: ${({ theme }) => theme.color.brand[0]};
-    font-size: ${({ theme }) => theme.fs.l};
+    color: ${({ theme }) => theme.color.white[0]};
+    background-color: ${({ theme }) => theme.color.black[0]};
+    font-size: ${({ theme }) => theme.fs.s};
+    z-index: 20;
+
     ${({ theme }) => theme.mediaQuery.md} {
         width: 250px;
         bottom: auto;
-        top: 50%;
-        font-size: ${({ theme }) => theme.fs.xl};
+        top: 5%;
+        font-size: ${({ theme }) => theme.fs.l};
     }
 `;
 const ListWrapper = styled.ul`
     display: grid;
     grid-auto-flow: column;
+
     ${({ theme }) => theme.mediaQuery.md} {
         grid-auto-flow: row;
-        top: 50%;
-        transform: translate(0%, -50%);
     }
 `;
 const ListElement = styled.li`
     list-style: none;
+    font-weight: ${({ theme }) => theme.fw[1]};
 `;
 const StyledLink = styled(Link)`
     display: block;
@@ -37,19 +40,15 @@ const StyledLink = styled(Link)`
     text-decoration: none;
     color: inherit;
     ${({ theme }) => theme.mediaQuery.md} {
-        padding: 35px 0px;
+        padding: 15px 0px;
     }
 `;
 const BackgroundImage = styled.img`
     display: none;
-    position: fixed;
     z-index: -1;
     ${({ theme }) => theme.mediaQuery.md} {
         display: block;
-        height: 100%;
-        left: 0%;
-        bottom: 50%;
-        transform: translate(-66%, 45%) rotate(15deg);
+        margin: 0px auto 30px;
     }
 `;
 
@@ -59,6 +58,7 @@ export const Navigation: FC<NavigationProps> = ({ ...props }) => {
     return (
         <Wrapper {...props}>
             <ListWrapper>
+                <BackgroundImage src={StarWars} alt="star wars" />
                 <ListElement>
                     <StyledLink to={Routes.PATHS.characters.path}>
                         {Routes.PATHS.characters.title}
@@ -75,7 +75,6 @@ export const Navigation: FC<NavigationProps> = ({ ...props }) => {
                     </StyledLink>
                 </ListElement>
             </ListWrapper>
-            <BackgroundImage src={deathStar} title="Gwiazda śmierci" />
         </Wrapper>
     );
 };

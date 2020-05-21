@@ -6,7 +6,7 @@ import { QueryKeys } from 'config/Constants';
 import { getSwapiPlanets, getItemIdFromUrl } from 'config/helpers';
 import { SwapiPlanet } from 'types/swapi';
 import { LabelsListItem } from 'components/LabelsList';
-import { ItemsList } from 'components/ItemsList';
+import { CustomItemsList } from 'components/CustomItemsList';
 
 const Wrapper = styled.div`
     height: 100%;
@@ -39,7 +39,7 @@ export const PlanetsList: FC<PlanetsListProps> = ({ ...props }) => {
     return (
         <MainLayout>
             <Wrapper {...props}>
-                <ItemsList items={planets} />
+                <CustomItemsList items={planets} />
             </Wrapper>
         </MainLayout>
     );
