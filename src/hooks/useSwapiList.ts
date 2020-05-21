@@ -5,7 +5,7 @@ import { useQuery, queryCache } from 'react-query';
 export interface UseSwapiListProps<Item, Response> {
     queryFunc: () => Response;
     queryKey: string;
-    generateQueryKeyForItem: (index: number, item: Item) => string;
+    generateQueryKeyForEachItem?: (index: number, item: Item) => string;
 }
 
 export const useSwapiList = <
@@ -14,21 +14,23 @@ export const useSwapiList = <
 >({
     queryFunc,
     queryKey,
-    generateQueryKeyForItem,
+    generateQueryKeyForEachItem,
 }: UseSwapiListProps<Item, QueryResponse>) => {
     const queryResponse = useQuery(queryKey, queryFunc);
 
     useEffect(() => {
         //cache fetched list
         const { data, status } = queryResponse;
-        if (status !== 'success' || !data) return;
+        if (status !== 'success' || !data || !generateQueryKeyForEachItem)
+            return;
 
         data.results.forEach((item, index) => {
-            queryCache.prefetchQuery(generateQueryKeyForItem(index, item), () =>
-                Promise.resolve(item),
+            queryCache.prefetchQuery(
+                generateQueryKeyForEachItem(index, item),
+                () => Promise.resolve(item),
             );
         });
-    }, [generateQueryKeyForItem, queryResponse]);
+    }, [generateQueryKeyForEachItem, queryResponse]);
 
     return queryResponse;
 };

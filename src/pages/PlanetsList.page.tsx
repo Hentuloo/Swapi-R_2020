@@ -2,11 +2,11 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { MainLayout } from 'Layouts/MainLayout';
 import { useSwapiList } from 'hooks/useSwapiList';
-import { QueryKeys } from 'config/Constants';
+import { queryKeys } from 'config/Constants';
 import { getSwapiPlanets, getItemIdFromUrl } from 'config/helpers';
 import { SwapiPlanet } from 'types/swapi';
-import { LabelsListItem } from 'components/LabelsList';
-import { CustomItemsList } from 'components/CustomItemsList';
+import { LabelsListItem } from 'components/Lists/LabelsList';
+import { LargePageList } from 'components/Lists/LargePageList';
 
 const Wrapper = styled.div`
     height: 100%;
@@ -16,9 +16,10 @@ export interface PlanetsListProps {}
 
 export const PlanetsList: FC<PlanetsListProps> = ({ ...props }) => {
     const { data, status } = useSwapiList<SwapiPlanet>({
-        queryKey: QueryKeys.planets,
+        queryKey: queryKeys.lists.planets,
         queryFunc: getSwapiPlanets,
-        generateQueryKeyForItem: (index) => QueryKeys.planet(index + 1),
+        generateQueryKeyForEachItem: (index) =>
+            queryKeys.single.planet(index + 1),
     });
 
     if (status === 'error') return <p>Error :</p>;
@@ -39,7 +40,7 @@ export const PlanetsList: FC<PlanetsListProps> = ({ ...props }) => {
     return (
         <MainLayout>
             <Wrapper {...props}>
-                <CustomItemsList items={planets} />
+                <LargePageList items={planets} />
             </Wrapper>
         </MainLayout>
     );

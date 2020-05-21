@@ -3,13 +3,14 @@ import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { getSwapiVehicle } from 'config/helpers';
 import { MainLayout } from 'Layouts/MainLayout';
-import { QueryKeys } from 'config/Constants';
+import { queryKeys } from 'config/Constants';
+import { SwapiSubItemsList } from 'components/Lists/SwapiSubItemsList';
 
 export interface VehicleProps {}
 
 export const Vehicle: FC<VehicleProps> = () => {
     const { id } = useParams();
-    const { status, data } = useQuery(QueryKeys.vehicle(id), () =>
+    const { status, data } = useQuery(queryKeys.single.vehicle(id), () =>
         getSwapiVehicle(id),
     );
 
@@ -17,6 +18,16 @@ export const Vehicle: FC<VehicleProps> = () => {
     if (status === 'loading') return <p>Loading...</p>;
     if (status === 'error') return <p>Error :</p>;
     if (!data) return null;
-    // return <Wrapper {...props}>{data.name}</Wrapper>;
-    return <MainLayout>{data.name}</MainLayout>;
+
+    const { pilots } = data;
+    return (
+        <MainLayout>
+            {data.name}
+            <SwapiSubItemsList
+                items={pilots}
+                queryKey={(id) => queryKeys.single.character(id)}
+                to={(id) => `/characters/${id}`}
+            />
+        </MainLayout>
+    );
 };

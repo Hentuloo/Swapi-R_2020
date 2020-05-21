@@ -27,26 +27,24 @@ const StyledLabelsList = styled(LabelsList)`
         width: 100%;
         max-width: none;
     }
+
     ${LabelWrapper} {
         max-width: 150px;
+        &:nth-child(odd) {
+            margin-top: 40px;
+        }
+        &:nth-child(even) {
+            margin-top: -40px;
+        }
         ${({ theme }) => theme.mediaQuery.vlg} {
             max-width: 200px;
         }
     }
-    ${LabelWrapper}:nth-child(odd) {
-        margin-top: 40px;
-    }
-    ${LabelWrapper}:nth-child(even) {
-        margin-top: -40px;
-    }
 `;
 
-export interface CustomItemsListProps extends LabelsListProps {}
+export interface LargePageListProps extends LabelsListProps {}
 
-export const CustomItemsList: FC<CustomItemsListProps> = ({
-    items,
-    ...props
-}) => {
+export const LargePageList: FC<LargePageListProps> = ({ items, ...props }) => {
     return (
         <Wrapper {...props}>
             <StyledLabelsList items={items} />

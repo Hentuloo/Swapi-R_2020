@@ -2,11 +2,11 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { MainLayout } from 'Layouts/MainLayout';
 import { useSwapiList } from 'hooks/useSwapiList';
-import { QueryKeys } from 'config/Constants';
+import { queryKeys } from 'config/Constants';
 import { getSwapiCharacters, getItemIdFromUrl } from 'config/helpers';
 import { SwapiCharacter } from 'types/swapi';
-import { LabelsListItem } from 'components/LabelsList';
-import { CustomItemsList } from 'components/CustomItemsList';
+import { LabelsListItem } from 'components/Lists/LabelsList';
+import { LargePageList } from 'components/Lists/LargePageList';
 import characterImage from 'assets/images/characters/1.jpg';
 
 const Wrapper = styled.div`
@@ -17,9 +17,10 @@ export interface CharactersListProps {}
 
 export const CharactersList: FC<CharactersListProps> = ({ ...props }) => {
     const { data, status } = useSwapiList<SwapiCharacter>({
-        queryKey: QueryKeys.characters,
+        queryKey: queryKeys.lists.characters,
         queryFunc: getSwapiCharacters,
-        generateQueryKeyForItem: (index) => QueryKeys.character(index + 1),
+        generateQueryKeyForEachItem: (index) =>
+            queryKeys.single.character(index + 1),
     });
 
     if (status === 'error') return <p>Error :</p>;
@@ -39,7 +40,7 @@ export const CharactersList: FC<CharactersListProps> = ({ ...props }) => {
     return (
         <MainLayout {...props}>
             <Wrapper>
-                <CustomItemsList items={characters} />
+                <LargePageList items={characters} />
             </Wrapper>
         </MainLayout>
     );

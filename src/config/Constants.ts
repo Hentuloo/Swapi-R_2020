@@ -1,11 +1,24 @@
 export const Constants = {
     swapiUrl: 'https://swapi.dev/api',
 };
-export const QueryKeys = {
-    characters: 'characters',
-    character: (id: number | string) => `characters-${id}`,
-    vehicles: 'vehicles',
-    vehicle: (id: number | string) => `vehicles-${id}`,
-    planets: 'planets',
-    planet: (id: number | string) => `planets-${id}`,
+export enum QuerySingleKeys {
+    character = 'character',
+    vehicle = 'vehicle',
+    planet = 'planet',
+    specie = 'specie',
+}
+export const queryKeys = {
+    lists: {
+        characters: 'characters',
+        vehicles: 'vehicles',
+        planets: 'planets',
+        species: 'species',
+    },
+    single: {
+        character: (id: number | string) =>
+            `${queryKeys.lists.characters}-${id}`,
+        vehicle: (id: number | string) => `${queryKeys.lists.vehicles}-${id}`,
+        planet: (id: number | string) => `${queryKeys.lists.planets}-${id}`,
+        specie: (id: number | string) => `${queryKeys.lists.species}-${id}`,
+    },
 };

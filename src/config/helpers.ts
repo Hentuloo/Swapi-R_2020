@@ -11,6 +11,7 @@ export const api = async <Response>(...args: any[]): Promise<Response> => {
     return await res.json();
 };
 export const getItemIdFromUrl = (url: string) => {
+    if (!url) return '';
     const urlParts = url.split('/').filter(Boolean);
     return urlParts[urlParts.length - 1];
 };

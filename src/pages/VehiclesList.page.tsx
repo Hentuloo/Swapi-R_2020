@@ -2,11 +2,11 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { MainLayout } from 'Layouts/MainLayout';
 import { useSwapiList } from 'hooks/useSwapiList';
-import { QueryKeys } from 'config/Constants';
+import { queryKeys } from 'config/Constants';
 import { getItemIdFromUrl, getSwapiVehicles } from 'config/helpers';
 import { SwapiVehicle } from 'types/swapi';
-import { LabelsListItem } from 'components/LabelsList';
-import { CustomItemsList } from 'components/CustomItemsList';
+import { LabelsListItem } from 'components/Lists/LabelsList';
+import { LargePageList } from 'components/Lists/LargePageList';
 
 const Wrapper = styled.div`
     height: 100%;
@@ -16,9 +16,10 @@ export interface VehiclesListProps {}
 
 export const VehiclesList: FC<VehiclesListProps> = ({ ...props }) => {
     const { data, status } = useSwapiList<SwapiVehicle>({
-        queryKey: QueryKeys.vehicles,
+        queryKey: queryKeys.lists.vehicles,
         queryFunc: getSwapiVehicles,
-        generateQueryKeyForItem: (index) => QueryKeys.vehicle(index + 1),
+        generateQueryKeyForEachItem: (index) =>
+            queryKeys.single.vehicle(index + 1),
     });
 
     if (status === 'error') return <p>Error :(</p>;
@@ -39,7 +40,7 @@ export const VehiclesList: FC<VehiclesListProps> = ({ ...props }) => {
     return (
         <MainLayout>
             <Wrapper {...props}>
-                <CustomItemsList items={vehicles} />
+                <LargePageList items={vehicles} />
             </Wrapper>
         </MainLayout>
     );
