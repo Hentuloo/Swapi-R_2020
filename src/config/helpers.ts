@@ -4,6 +4,7 @@ import {
     SwapiCharacter,
     SwapiVehicle,
     SwapiPlanet,
+    SwapiSpecies,
 } from 'types/swapi';
 
 export const api = async <Response>(...args: any[]): Promise<Response> => {
@@ -11,9 +12,8 @@ export const api = async <Response>(...args: any[]): Promise<Response> => {
     return await res.json();
 };
 export const getItemIdFromUrl = (url: string) => {
-    if (!url) return '';
     const urlParts = url.split('/').filter(Boolean);
-    return urlParts[urlParts.length - 1];
+    return Number(urlParts[urlParts.length - 1]);
 };
 export const getSwapiCharacters = () =>
     api<SwapiList<SwapiCharacter>>(`${Constants.swapiUrl}/people`);
@@ -29,3 +29,8 @@ export const getSwapiPlanets = () =>
     api<SwapiList<SwapiPlanet>>(`${Constants.swapiUrl}/planets`);
 export const getSwapiPlanet = (id: number) =>
     api<SwapiPlanet>(`${Constants.swapiUrl}/planets/${id}`);
+
+export const getSwapiSpecies = () =>
+    api<SwapiList<SwapiSpecies>>(`${Constants.swapiUrl}/species`);
+export const getSwapiSpecie = (id: number) =>
+    api<SwapiSpecies>(`${Constants.swapiUrl}/species/${id}`);

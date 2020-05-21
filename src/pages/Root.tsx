@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { CharactersList } from './CharactersList.page';
-import { Character } from './Character.page';
-import { PlanetsList } from './PlanetsList.page';
-import { Planet } from './Planet.page';
-import { VehiclesList } from './VehiclesList.page';
-import { Vehicle } from './Vehicle.page';
+import { CharactersList } from './Characters/CharactersList.page';
+import { Character } from './Characters/Character.page';
+import { PlanetsList } from './Planets/PlanetsList.page';
+import { Planet } from './Planets/Planet.page';
+import { VehiclesList } from './Vehicles/VehiclesList.page';
+import { Vehicle } from './Vehicles/Vehicle.page';
 import { ReactQueryDevtools } from 'react-query-devtools';
 import { Routes } from 'config/Routes';
 

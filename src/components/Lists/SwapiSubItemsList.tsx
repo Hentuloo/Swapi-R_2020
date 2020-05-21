@@ -12,7 +12,11 @@ const Wrapper = styled.ul`
     justify-content: space-around;
 `;
 export const ListItem = styled.li`
-    max-width: 150px;
+    max-width: 120px;
+    margin: 10px;
+    ${({ theme }) => theme.mediaQuery.lg} {
+        max-width: 130px;
+    }
 `;
 export interface SwapiSubItemsListProps {
     items: string[];
@@ -26,7 +30,7 @@ export const SwapiSubItemsList = <ItemType extends SwapiItemType>({
     to,
     ...props
 }: SwapiSubItemsListProps) => {
-    const itemsWithId = useMemo(
+    const itemsWithIds = useMemo(
         () =>
             items.map((url) => ({
                 url,
@@ -34,17 +38,18 @@ export const SwapiSubItemsList = <ItemType extends SwapiItemType>({
             })),
         [items],
     );
-    if (itemsWithId.length === 0) return null;
+    if (itemsWithIds.length === 0) return null;
 
     return (
         <Wrapper {...props}>
-            {itemsWithId.map(({ id, url }) => (
+            {itemsWithIds.map(({ id, url }) => (
                 <WithSwapiItem<ItemType>
                     key={url}
-                    queryKey={queryKey(Number(id))}
+                    queryKey={queryKey(id)}
                     url={url}
                     render={({ data }) => {
                         if (!data) return null;
+
                         return (
                             <ListItem>
                                 <LabelWithImage key={url} to={to(Number(id))}>

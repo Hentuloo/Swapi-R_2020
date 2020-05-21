@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { SwapiList, SwapiItemType } from 'types/swapi';
 import { useQuery, queryCache } from 'react-query';
 
@@ -16,21 +15,18 @@ export const useSwapiList = <
     queryKey,
     generateQueryKeyForEachItem,
 }: UseSwapiListProps<Item, QueryResponse>) => {
-    const queryResponse = useQuery(queryKey, queryFunc);
-
-    useEffect(() => {
-        //cache fetched list
-        const { data, status } = queryResponse;
-        if (status !== 'success' || !data || !generateQueryKeyForEachItem)
-            return;
-
-        data.results.forEach((item, index) => {
-            queryCache.prefetchQuery(
-                generateQueryKeyForEachItem(index, item),
-                () => Promise.resolve(item),
-            );
-        });
-    }, [generateQueryKeyForEachItem, queryResponse]);
+    const queryResponse = useQuery(queryKey, queryFunc, {
+        onSuccess: (data) => {
+            //cache fetched list
+            if (!generateQueryKeyForEachItem) return;
+            data.results.forEach((item, index) => {
+                queryCache.prefetchQuery(
+                    generateQueryKeyForEachItem(index, item),
+                    () => Promise.resolve(item),
+                );
+            });
+        },
+    });
 
     return queryResponse;
 };
