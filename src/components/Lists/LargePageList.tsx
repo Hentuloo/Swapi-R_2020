@@ -1,6 +1,10 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { LabelsListProps, LabelsList, LabelWrapper } from './LabelsList';
+import {
+    PaginationButtonsProps,
+    PaginationButtons,
+} from 'components/PaginationButtons';
 
 const Wrapper = styled.div`
     width: 80%;
@@ -48,6 +52,43 @@ export const LargePageList: FC<LargePageListProps> = ({ items, ...props }) => {
     return (
         <Wrapper {...props}>
             <StyledLabelsList items={items} />
+        </Wrapper>
+    );
+};
+
+const StyledPaginationButtons = styled(PaginationButtons)`
+    position: fixed;
+    top: 10px;
+    left: 20px;
+    ${({ theme }) => theme.mediaQuery.md} {
+        top: auto;
+        left: auto;
+        right: 10px;
+        bottom: 5%;
+    }
+`;
+
+export interface LargePageListWithPaginationProps
+    extends LabelsListProps,
+        PaginationButtonsProps {}
+
+export const LargePageListWithPagination: FC<LargePageListWithPaginationProps> = ({
+    items,
+    prev,
+    next,
+    active,
+    maxPage,
+    ...props
+}) => {
+    return (
+        <Wrapper {...props}>
+            <StyledLabelsList items={items} />
+            <StyledPaginationButtons
+                next={next}
+                prev={prev}
+                active={active}
+                maxPage={maxPage}
+            />
         </Wrapper>
     );
 };

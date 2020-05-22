@@ -8,7 +8,7 @@ const Wrapper = styled.div`
     min-height: 100vh;
     grid-template-columns: 0px 1fr;
     ${({ theme }) => theme.mediaQuery.md} {
-        grid-template-columns: 240px 1fr;
+        grid-template-columns: 250px 1fr;
     }
 `;
 

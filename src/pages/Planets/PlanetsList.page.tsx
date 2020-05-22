@@ -1,12 +1,11 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { MainLayout } from 'Layouts/MainLayout';
 import { useSwapiList } from 'hooks/useSwapiList';
-import { queryKeys } from 'config/Constants';
+import { queryKeys, swapiMaxResultsPerPage } from 'config/Constants';
 import { getSwapiPlanets, getItemIdFromUrl } from 'config/helpers';
 import { SwapiPlanet } from 'types/swapi';
 import { LabelsListItem } from 'components/Lists/LabelsList';
-import { LargePageList } from 'components/Lists/LargePageList';
+import { LargePageListWithPagination } from 'components/Lists/LargePageList';
 
 const Wrapper = styled.div`
     height: 100%;
@@ -15,33 +14,44 @@ const Wrapper = styled.div`
 export interface PlanetsListProps {}
 
 export const PlanetsList: FC<PlanetsListProps> = ({ ...props }) => {
-    const { data, status } = useSwapiList<SwapiPlanet>({
-        queryKey: queryKeys.lists.planets,
-        queryFunc: getSwapiPlanets,
+    const [
+        { resolvedData, error, status },
+        { nextPage, prevPage, activePage },
+    ] = useSwapiList<SwapiPlanet>({
+        queryKey: (page) => queryKeys.lists.planets(page),
+        queryFunc: (page) => () => getSwapiPlanets(page),
         generateQueryKeyForEachItem: (index) =>
             queryKeys.single.planet(index + 1),
+        initialPage: 1,
     });
 
-    if (status === 'error') return <p>Error :</p>;
-    if (status === 'loading' || !data) return <p>Loading...</p>;
-
-    const planets = data.results.map(
-        ({ name, url }): LabelsListItem => {
-            const id = getItemIdFromUrl(url);
-            return {
-                id,
-                title: name,
-                image: 'https://source.unsplash.com/random/150x150',
-                to: `/planets/${id}`,
-            };
-        },
-    );
+    const planets =
+        resolvedData &&
+        resolvedData.results.map(
+            ({ name, url }): LabelsListItem => {
+                const id = getItemIdFromUrl(url);
+                return {
+                    id,
+                    title: name,
+                    image: 'https://source.unsplash.com/random/150x150',
+                    to: `/planets/${id}`,
+                };
+            },
+        );
 
     return (
-        <MainLayout>
-            <Wrapper {...props}>
-                <LargePageList items={planets} />
-            </Wrapper>
-        </MainLayout>
+        <Wrapper {...props}>
+            {status === 'error' && `Error: ${error}`}
+            <LargePageListWithPagination
+                items={planets || []}
+                next={nextPage}
+                prev={prevPage}
+                active={activePage}
+                maxPage={
+                    resolvedData &&
+                    Math.ceil(resolvedData.count / swapiMaxResultsPerPage)
+                }
+            />
+        </Wrapper>
     );
 };

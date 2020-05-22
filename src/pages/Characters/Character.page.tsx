@@ -1,9 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, Suspense } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
-import { MainLayout } from 'Layouts/MainLayout';
 import { useSingleSwapiItem } from 'hooks/useSingleSwapiItem';
 import { CharacterDetails } from './CharacterDetails';
+import { LoadingSpiner } from 'components/LoadingSpiner';
 
 const Wrapper = styled.div`
     width: 90%;
@@ -34,10 +34,10 @@ export const Character: FC<CharacterProps> = () => {
 
     if (!data) return null;
     return (
-        <MainLayout>
-            <Wrapper>
+        <Wrapper>
+            <Suspense fallback={<LoadingSpiner />}>
                 <CharacterDetails character={data} />
-            </Wrapper>
-        </MainLayout>
+            </Suspense>
+        </Wrapper>
     );
 };

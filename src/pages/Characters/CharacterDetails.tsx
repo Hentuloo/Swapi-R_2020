@@ -39,10 +39,10 @@ export const CharacterDetails: FC<CharacterDetailsProps> = ({ character }) => {
     );
 
     const {
-        planet: { data: planetData, status: PlanetStatus },
+        planet: { data: planetData },
     } = useSingleSwapiItem({ planetId });
     const {
-        specie: { data: specieData, status: SpecieStatus },
+        specie: { data: specieData },
     } = useSingleSwapiItem({ specieId });
 
     const { name, vehicles } = character;
@@ -51,14 +51,12 @@ export const CharacterDetails: FC<CharacterDetailsProps> = ({ character }) => {
             <CircledLabel title={name} mode="CIRCLE">
                 {name}
             </CircledLabel>
-            {PlanetStatus === 'loading' && 'loading'}
             {planetData && (
                 <CircledLabel to={`/planets/${planetId}`} mode="CIRCLE">
                     <SmallText>Homeworld: </SmallText>
                     {planetData.name}
                 </CircledLabel>
             )}
-            {SpecieStatus === 'loading' && 'loading'}
             {specieData && (
                 <div>
                     <SmallText>Species: </SmallText>

@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useImage } from 'react-image';
 
 export type LabelMode = 'SQUARE' | 'CIRCLE';
 
@@ -71,6 +72,9 @@ export const LabelWithImage: FC<LabelWithImageProps> = ({
     mode = 'SQUARE',
     ...props
 }) => {
+    const { src: suspendedSrc } = useImage({
+        srcList: src,
+    });
     return (
         <Wrapper
             {...props}
@@ -80,7 +84,7 @@ export const LabelWithImage: FC<LabelWithImageProps> = ({
             mode={mode}
         >
             <ImageWrapper mode={mode}>
-                <Image src={src} alt={alt} />
+                <Image src={suspendedSrc} alt={alt} />
             </ImageWrapper>
             <ContentWrapper mode={mode}>{children}</ContentWrapper>
         </Wrapper>

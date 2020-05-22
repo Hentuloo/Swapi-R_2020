@@ -1,9 +1,10 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, Suspense } from 'react';
 import styled from 'styled-components';
 import { getItemIdFromUrl } from 'config/helpers';
 import { SwapiItemType } from 'types/swapi';
 import { WithSwapiItem } from 'providers/WithSwapiItem';
 import { LabelWithImage } from 'components/LabelWithImage';
+import { LoadingSpiner } from 'components/LoadingSpiner';
 
 const Wrapper = styled.ul`
     display: flex;
@@ -42,24 +43,30 @@ export const SwapiSubItemsList = <ItemType extends SwapiItemType>({
 
     return (
         <Wrapper {...props}>
-            {itemsWithIds.map(({ id, url }) => (
-                <WithSwapiItem<ItemType>
-                    key={url}
-                    queryKey={queryKey(id)}
-                    url={url}
-                    render={({ data }) => {
-                        if (!data) return null;
+            <Suspense fallback={<LoadingSpiner />}>
+                {itemsWithIds.map(({ id, url }) => (
+                    <WithSwapiItem<ItemType>
+                        key={url}
+                        queryKey={queryKey(id)}
+                        url={url}
+                        opts={{ suspense: true }}
+                        render={({ data }) => {
+                            if (!data) return null;
 
-                        return (
-                            <ListItem>
-                                <LabelWithImage key={url} to={to(Number(id))}>
-                                    {data.name || data.title}
-                                </LabelWithImage>
-                            </ListItem>
-                        );
-                    }}
-                />
-            ))}
+                            return (
+                                <ListItem>
+                                    <LabelWithImage
+                                        key={url}
+                                        to={to(Number(id))}
+                                    >
+                                        {data.name || data.title}
+                                    </LabelWithImage>
+                                </ListItem>
+                            );
+                        }}
+                    />
+                ))}
+            </Suspense>
         </Wrapper>
     );
 };

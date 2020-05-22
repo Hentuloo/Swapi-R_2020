@@ -7,18 +7,26 @@ export enum QuerySingleKeys {
     planet = 'planet',
     specie = 'specie',
 }
+export const swapiMaxResultsPerPage = 10;
 export const queryKeys = {
-    lists: {
+    keys: {
         characters: 'characters',
         vehicles: 'vehicles',
         planets: 'planets',
         species: 'species',
     },
+    lists: {
+        characters: (id: number | string) =>
+            `${queryKeys.lists.characters}/${id}`,
+        vehicles: (id: number | string) => `${queryKeys.keys.vehicles}/${id}`,
+        planets: (id: number | string) => `${queryKeys.keys.planets}/${id}`,
+        species: (id: number | string) => `${queryKeys.keys.species}/${id}`,
+    },
     single: {
         character: (id: number | string) =>
             `${queryKeys.lists.characters}-${id}`,
-        vehicle: (id: number | string) => `${queryKeys.lists.vehicles}-${id}`,
-        planet: (id: number | string) => `${queryKeys.lists.planets}-${id}`,
-        specie: (id: number | string) => `${queryKeys.lists.species}-${id}`,
+        vehicle: (id: number | string) => `${queryKeys.keys.vehicles}-${id}`,
+        planet: (id: number | string) => `${queryKeys.keys.planets}-${id}`,
+        specie: (id: number | string) => `${queryKeys.keys.species}-${id}`,
     },
 };
