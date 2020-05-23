@@ -61,6 +61,7 @@ export interface LabelWithImageProps {
     alt?: string;
     to?: string;
     mode?: LabelMode;
+    defaultImage?: string;
 }
 
 export const LabelWithImage: FC<LabelWithImageProps> = ({
@@ -69,12 +70,21 @@ export const LabelWithImage: FC<LabelWithImageProps> = ({
     title,
     alt,
     to,
+    defaultImage,
     mode = 'SQUARE',
     ...props
 }) => {
     const { src: suspendedSrc } = useImage({
         srcList: src,
     });
+
+    const handleError = ({
+        currentTarget,
+    }: React.SyntheticEvent<HTMLImageElement, Event>) => {
+        if (!defaultImage) return;
+        currentTarget.src = defaultImage;
+    };
+
     return (
         <Wrapper
             {...props}
@@ -84,7 +94,7 @@ export const LabelWithImage: FC<LabelWithImageProps> = ({
             mode={mode}
         >
             <ImageWrapper mode={mode}>
-                <Image src={suspendedSrc} alt={alt} />
+                <Image src={suspendedSrc} alt={alt} onError={handleError} />
             </ImageWrapper>
             <ContentWrapper mode={mode}>{children}</ContentWrapper>
         </Wrapper>

@@ -12,6 +12,7 @@ export interface LabelsListItem {
     title: string;
     image: string;
     to?: string;
+    defaultImage?: string;
 }
 export interface LabelsListProps {
     items: LabelsListItem[];

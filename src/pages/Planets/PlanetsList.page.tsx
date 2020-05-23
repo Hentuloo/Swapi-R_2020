@@ -2,10 +2,16 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { useSwapiList } from 'hooks/useSwapiList';
 import { queryKeys, swapiMaxResultsPerPage } from 'config/Constants';
-import { getSwapiPlanets, getItemIdFromUrl } from 'config/helpers';
+import { getSwapiPlanets, getItemIdFromUrl, importAll } from 'config/helpers';
 import { SwapiPlanet } from 'types/swapi';
 import { LabelsListItem } from 'components/Lists/LabelsList';
 import { LargePageListWithPagination } from 'components/Lists/LargePageList';
+import defaultCharacterImage from 'assets/images/defaultCharacter.svg';
+
+const images = importAll(
+    require.context('assets/images/planets/', true, /\.(png|jpe?g|svg)$/),
+    true,
+);
 
 const Wrapper = styled.div`
     height: 100%;
@@ -33,7 +39,7 @@ export const PlanetsList: FC<PlanetsListProps> = ({ ...props }) => {
                 return {
                     id,
                     title: name,
-                    image: 'https://source.unsplash.com/random/150x150',
+                    image: images[id] || defaultCharacterImage,
                     to: `/planets/${id}`,
                 };
             },

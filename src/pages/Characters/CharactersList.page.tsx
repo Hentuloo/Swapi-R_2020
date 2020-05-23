@@ -2,11 +2,20 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { useSwapiList } from 'hooks/useSwapiList';
 import { queryKeys, swapiMaxResultsPerPage } from 'config/Constants';
-import { getSwapiCharacters, getItemIdFromUrl } from 'config/helpers';
+import {
+    getSwapiCharacters,
+    getItemIdFromUrl,
+    importAll,
+} from 'config/helpers';
 import { SwapiCharacter } from 'types/swapi';
 import { LabelsListItem } from 'components/Lists/LabelsList';
 import { LargePageListWithPagination } from 'components/Lists/LargePageList';
-import characterImage from 'assets/images/characters/1.jpg';
+import defaultCharacterImage from 'assets/images/defaultCharacter.svg';
+
+const images = importAll(
+    require.context('assets/images/characters/', true, /\.(png|jpe?g|svg)$/),
+    true,
+);
 
 const Wrapper = styled.div`
     position: relative;
@@ -31,11 +40,13 @@ export const CharactersList: FC<CharactersListProps> = () => {
         resolvedData.results.map(
             ({ name, url }): LabelsListItem => {
                 const id = getItemIdFromUrl(url);
+
                 return {
                     id,
                     title: name,
-                    image: characterImage,
+                    image: images[id] || defaultCharacterImage,
                     to: `/characters/${id}`,
+                    defaultImage: defaultCharacterImage,
                 };
             },
         );

@@ -2,7 +2,7 @@
     "compilerOptions": {
         "baseUrl": "src",
         "target": "es6",
-        "types": ["react", "jest"],
+        "types": ["react", "jest", "node", "webpack-env"],
         "lib": ["dom", "dom.iterable", "esnext"],
         "allowJs": true,
         "skipLibCheck": true,
