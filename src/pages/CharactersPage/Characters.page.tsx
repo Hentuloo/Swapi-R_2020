@@ -7,7 +7,7 @@ export interface CharactersProps {}
 export const Characters: FC<CharactersProps> = ({ ...props }) => {
     return (
         <>
-            <Suspense fallback={<LoadingSpiner />}>
+            <Suspense fallback={<LoadingSpiner centered />}>
                 <CharactersList {...props} />
             </Suspense>
         </>

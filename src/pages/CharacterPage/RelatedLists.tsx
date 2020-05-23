@@ -1,12 +1,17 @@
-import React, { FC } from 'react';
+import React, { FC, Suspense } from 'react';
 import styled from 'styled-components';
 import { queryKeys } from 'config/Constants';
 import { SwapiVehicle } from 'types/swapi';
 import { WithSwapiMultipleItems } from 'providers/WithSwapiMultipleItems';
-import { LabelsList, LabelWrapper } from 'components/Lists/LabelsList';
+import {
+    LabelsList,
+    LabelWrapper,
+    LabelsListItem,
+} from 'components/Lists/LabelsList';
 import { vehicleImageById } from 'assets/images/vehicles';
 import { getItemIdFromUrl } from 'config/helpers';
 import defaultCharacterImage from 'assets/images/defaultCharacter.svg';
+import { LoadingSpiner } from 'components/LoadingSpiner';
 
 const StyledLabelsList = styled(LabelsList)`
     display: flex;
@@ -22,7 +27,9 @@ const StyledLabelsList = styled(LabelsList)`
         }
     }
 `;
-
+const StyledLoadingSpiner = styled(LoadingSpiner)`
+    margin: 0px auto;
+`;
 export interface RelatedListsProps {
     vehicles: string[] | undefined;
     parentId: string | number;
@@ -31,24 +38,32 @@ export interface RelatedListsProps {
 export const RalatedLists: FC<RelatedListsProps> = ({ vehicles, parentId }) => {
     if (!vehicles || vehicles.length === 0) return null;
     return (
-        <WithSwapiMultipleItems<SwapiVehicle>
-            items={vehicles}
-            listKey={`character-vehicles-list-${parentId}`}
-            itemKey={(id) => queryKeys.single.vehicle(id)}
-            render={({ data }) => {
-                if (!data) return null;
-                const vehicles = data.map(({ name, url }) => {
-                    const id = getItemIdFromUrl(url);
-                    return {
-                        id,
-                        title: name,
-                        image: vehicleImageById[id] || defaultCharacterImage,
-                        to: `/vehicles/${id}`,
-                        defaultImage: defaultCharacterImage,
-                    };
-                });
-                return <StyledLabelsList items={vehicles} />;
-            }}
-        />
+        <Suspense fallback={<StyledLoadingSpiner />}>
+            <WithSwapiMultipleItems<SwapiVehicle>
+                items={vehicles}
+                listKey={`character-vehicles-list-${parentId}`}
+                itemKey={(id) => queryKeys.single.vehicle(id)}
+                opts={{ suspense: true }}
+                render={({ data }) => {
+                    if (!data) return null;
+                    const vehicles = data.map(
+                        ({ name, url }): LabelsListItem => {
+                            const id = getItemIdFromUrl(url);
+                            return {
+                                id,
+                                title: name,
+                                src:
+                                    vehicleImageById[id] ||
+                                    defaultCharacterImage,
+                                to: `/vehicles/${id}`,
+                                suspense: true,
+                                defaultImage: defaultCharacterImage,
+                            };
+                        },
+                    );
+                    return <StyledLabelsList items={vehicles} />;
+                }}
+            />
+        </Suspense>
     );
 };

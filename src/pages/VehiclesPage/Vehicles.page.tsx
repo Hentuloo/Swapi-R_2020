@@ -6,7 +6,7 @@ export interface VehiclesProps {}
 
 export const Vehicles: FC<VehiclesProps> = ({ ...props }) => {
     return (
-        <Suspense fallback={<LoadingSpiner />}>
+        <Suspense fallback={<LoadingSpiner centered />}>
             <VehiclesList {...props} />
         </Suspense>
     );

@@ -39,8 +39,9 @@ export const VehiclesList: FC<VehiclesListProps> = ({ ...props }) => {
                 return {
                     id,
                     title: name,
-                    image: images[id] || defaultCharacterImage,
+                    src: images[id] || defaultCharacterImage,
                     to: `/vehicles/${id}`,
+                    suspense: true,
                 };
             },
         );

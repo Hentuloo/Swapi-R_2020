@@ -1,9 +1,8 @@
-import React, { FC, Suspense } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { useParams, useHistory } from 'react-router-dom';
 import { useSingleSwapiItem } from 'hooks/useSingleSwapiItem';
 import { CharacterDetails } from './CharacterDetails';
-import { LoadingSpiner } from 'components/LoadingSpiner';
 import { ClearButton } from 'components/ClearButton';
 
 const Wrapper = styled.div`
@@ -38,9 +37,7 @@ export const Character: FC<CharacterProps> = () => {
     if (!data) return null;
     return (
         <Wrapper>
-            <Suspense fallback={<LoadingSpiner />}>
-                <CharacterDetails character={data} characterId={id} />
-            </Suspense>
+            <CharacterDetails character={data} characterId={id} />
             <ClearButton onClick={goBack}>Go back</ClearButton>
         </Wrapper>
     );

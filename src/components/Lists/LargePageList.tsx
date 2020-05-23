@@ -11,10 +11,12 @@ const Wrapper = styled.div`
     max-width: 800px;
     height: 100%;
     margin: 0px auto;
+    padding-bottom: 80px;
     ${({ theme }) => theme.mediaQuery.lg} {
         width: 50%;
         max-width: 1200px;
         margin: 0px 0px 0px auto;
+        padding-bottom: 0px;
     }
 `;
 const StyledLabelsList = styled(LabelsList)`
@@ -23,8 +25,8 @@ const StyledLabelsList = styled(LabelsList)`
     grid-row-gap: 30px;
     grid-column-gap: 10px;
     grid-template-columns: 1fr 1fr;
-    margin: 70px auto 0px;
-    padding-bottom: 100px;
+    margin: 10px auto 0px;
+    padding-bottom: 10px;
     justify-items: center;
 
     ${({ theme }) => theme.mediaQuery.lg} {
@@ -57,14 +59,9 @@ export const LargePageList: FC<LargePageListProps> = ({ items, ...props }) => {
 };
 
 const StyledPaginationButtons = styled(PaginationButtons)`
-    position: fixed;
-    top: 10px;
-    left: 20px;
-    ${({ theme }) => theme.mediaQuery.md} {
-        top: auto;
-        left: auto;
-        right: 10px;
-        bottom: 5%;
+    padding: 30px 0px;
+    &:nth-of-type(2) {
+        text-align: end;
     }
 `;
 
@@ -82,6 +79,12 @@ export const LargePageListWithPagination: FC<LargePageListWithPaginationProps> =
 }) => {
     return (
         <Wrapper {...props}>
+            <StyledPaginationButtons
+                next={next}
+                prev={prev}
+                active={active}
+                maxPage={maxPage}
+            />
             <StyledLabelsList items={items} />
             <StyledPaginationButtons
                 next={next}

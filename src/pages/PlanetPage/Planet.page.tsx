@@ -1,9 +1,8 @@
-import React, { FC, Suspense } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { useParams, useHistory } from 'react-router-dom';
 import { useSingleSwapiItem } from 'hooks/useSingleSwapiItem';
 import { PlanetDetails } from './PlanetDetails';
-import { LoadingSpiner } from 'components/LoadingSpiner';
 import { ClearButton } from 'components/ClearButton';
 
 const Wrapper = styled.div`
@@ -37,9 +36,7 @@ export const Planet: FC<PlanetProps> = () => {
     if (!data) return null;
     return (
         <Wrapper>
-            <Suspense fallback={<LoadingSpiner />}>
-                <PlanetDetails planet={data} planetId={id} />
-            </Suspense>
+            <PlanetDetails planet={data} planetId={id} />
             <ClearButton onClick={goBack}>Go back</ClearButton>
         </Wrapper>
     );

@@ -1,9 +1,8 @@
-import React, { FC, Suspense } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { useParams, useHistory } from 'react-router-dom';
 import { useSingleSwapiItem } from 'hooks/useSingleSwapiItem';
 import { VehicleDetails } from './VehicleDetails';
-import { LoadingSpiner } from 'components/LoadingSpiner';
 import { ClearButton } from 'components/ClearButton';
 
 const Wrapper = styled.div`
@@ -37,9 +36,7 @@ export const Vehicle: FC<VehicleProps> = () => {
     if (!data) return null;
     return (
         <Wrapper>
-            <Suspense fallback={<LoadingSpiner />}>
-                <VehicleDetails vehicle={data} vehicleId={id} />
-            </Suspense>
+            <VehicleDetails vehicle={data} vehicleId={id} />
             <ClearButton onClick={goBack}>Go back</ClearButton>
         </Wrapper>
     );

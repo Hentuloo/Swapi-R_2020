@@ -1,18 +1,14 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { LabelWithImage } from '../LabelWithImage';
+import { LabelWithImage, LabelWithImageProps } from '../LabelWithImage';
 
 const Wrapper = styled.ul`
     list-style: none;
 `;
 export const LabelWrapper = styled.li``;
 
-export interface LabelsListItem {
+export interface LabelsListItem extends LabelWithImageProps {
     id: string | number;
-    title: string;
-    image: string;
-    to?: string;
-    defaultImage?: string;
 }
 export interface LabelsListProps {
     items: LabelsListItem[];
@@ -21,13 +17,14 @@ export interface LabelsListProps {
 export const LabelsList: FC<LabelsListProps> = ({ items, ...props }) => {
     return (
         <Wrapper {...props}>
-            {items.map(({ title, image, to, id, defaultImage }) => (
+            {items.map(({ title, src, to, id, defaultImage, ...props }) => (
                 <LabelWrapper key={id}>
                     <LabelWithImage
                         to={to}
-                        src={image}
+                        src={src}
                         title={title}
                         defaultImage={defaultImage}
+                        {...props}
                     >
                         {title}
                     </LabelWithImage>

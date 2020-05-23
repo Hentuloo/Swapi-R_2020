@@ -36,9 +36,10 @@ export const CharactersList: FC<CharactersListProps> = () => {
                 return {
                     id,
                     title: name,
-                    image: CharacterImageById[id] || defaultCharacterImage,
+                    src: CharacterImageById[id] || defaultCharacterImage,
                     to: `/characters/${id}`,
                     defaultImage: defaultCharacterImage,
+                    suspense: true,
                 };
             },
         );

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, Suspense } from 'react';
 import styled from 'styled-components';
 import { queryKeys } from 'config/Constants';
 import { SwapiVehicle } from 'types/swapi';
@@ -7,6 +7,7 @@ import { LabelsList, LabelWrapper } from 'components/Lists/LabelsList';
 import { getItemIdFromUrl } from 'config/helpers';
 import defaultCharacterImage from 'assets/images/defaultCharacter.svg';
 import { CharacterImageById } from 'assets/images/characters';
+import { LoadingSpiner } from 'components/LoadingSpiner';
 
 const StyledLabelsList = styled(LabelsList)`
     display: flex;
@@ -22,7 +23,9 @@ const StyledLabelsList = styled(LabelsList)`
         }
     }
 `;
-
+const StyledLoadingSpiner = styled(LoadingSpiner)`
+    margin: 0px auto;
+`;
 export interface RelatedListsProps {
     pilots: string[] | undefined;
     parentId: string | number;
@@ -31,24 +34,28 @@ export interface RelatedListsProps {
 export const RalatedLists: FC<RelatedListsProps> = ({ pilots, parentId }) => {
     if (!pilots || pilots.length === 0) return null;
     return (
-        <WithSwapiMultipleItems<SwapiVehicle>
-            items={pilots}
-            listKey={`vehicle-pilots-list-${parentId}`}
-            itemKey={(id) => queryKeys.single.vehicle(id)}
-            render={({ data }) => {
-                if (!data) return null;
-                const items = data.map(({ name, url }) => {
-                    const id = getItemIdFromUrl(url);
-                    return {
-                        id,
-                        title: name,
-                        image: CharacterImageById[id] || defaultCharacterImage,
-                        to: `/characters/${id}`,
-                        defaultImage: defaultCharacterImage,
-                    };
-                });
-                return <StyledLabelsList items={items} />;
-            }}
-        />
+        <Suspense fallback={<StyledLoadingSpiner />}>
+            <WithSwapiMultipleItems<SwapiVehicle>
+                items={pilots}
+                listKey={`vehicle-pilots-list-${parentId}`}
+                itemKey={(id) => queryKeys.single.vehicle(id)}
+                render={({ data }) => {
+                    if (!data) return null;
+                    const items = data.map(({ name, url }) => {
+                        const id = getItemIdFromUrl(url);
+                        return {
+                            id,
+                            title: name,
+                            src:
+                                CharacterImageById[id] || defaultCharacterImage,
+                            to: `/characters/${id}`,
+                            defaultImage: defaultCharacterImage,
+                            suspense: true,
+                        };
+                    });
+                    return <StyledLabelsList items={items} />;
+                }}
+            />
+        </Suspense>
     );
 };

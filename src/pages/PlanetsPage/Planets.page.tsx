@@ -6,7 +6,7 @@ export interface PlanetsProps {}
 
 export const Planets: FC<PlanetsProps> = ({ ...props }) => {
     return (
-        <Suspense fallback={<LoadingSpiner />}>
+        <Suspense fallback={<LoadingSpiner centered />}>
             <PlanetsList {...props} />
         </Suspense>
     );

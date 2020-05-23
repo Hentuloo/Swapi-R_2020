@@ -63,6 +63,7 @@ export interface LabelWithImageProps {
     to?: string;
     mode?: LabelMode;
     defaultImage?: string;
+    suspense?: boolean;
 }
 
 export const LabelWithImage: FC<LabelWithImageProps> = ({
@@ -73,17 +74,19 @@ export const LabelWithImage: FC<LabelWithImageProps> = ({
     to,
     defaultImage,
     mode = 'SQUARE',
+    suspense = false,
     ...props
 }) => {
     const { src: suspendedSrc } = useImage({
         srcList: src,
+        useSuspense: suspense,
     });
 
     const handleError = ({
         currentTarget,
     }: React.SyntheticEvent<HTMLImageElement, Event>) => {
         if (!defaultImage) return;
-        currentTarget.src = defaultImage;
+        currentTarget.src = defaultImage || '';
     };
 
     return (

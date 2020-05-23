@@ -39,8 +39,9 @@ export const PlanetsList: FC<PlanetsListProps> = ({ ...props }) => {
                 return {
                     id,
                     title: name,
-                    image: images[id] || defaultCharacterImage,
+                    src: images[id] || defaultCharacterImage,
                     to: `/planets/${id}`,
+                    suspense: true,
                 };
             },
         );
