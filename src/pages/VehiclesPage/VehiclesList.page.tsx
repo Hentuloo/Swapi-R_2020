@@ -24,8 +24,8 @@ export const VehiclesList: FC<VehiclesListProps> = ({ ...props }) => {
         { resolvedData, error, status },
         { nextPage, prevPage, activePage },
     ] = useSwapiList<SwapiVehicle>({
-        queryKey: (page) => queryKeys.lists.vehicles(page),
-        queryFunc: (page) => () => getSwapiVehicles(page),
+        queryKey: queryKeys.lists.vehicles,
+        queryFunc: getSwapiVehicles,
         generateQueryKeyForEachItem: (index) =>
             queryKeys.single.vehicle(index + 1),
         initialPage: 1,

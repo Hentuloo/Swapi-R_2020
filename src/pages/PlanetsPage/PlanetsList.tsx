@@ -24,8 +24,8 @@ export const PlanetsList: FC<PlanetsListProps> = ({ ...props }) => {
         { resolvedData, error, status },
         { nextPage, prevPage, activePage },
     ] = useSwapiList<SwapiPlanet>({
-        queryKey: (page) => queryKeys.lists.planets(page),
-        queryFunc: (page) => () => getSwapiPlanets(page),
+        queryKey: queryKeys.lists.planets,
+        queryFunc: getSwapiPlanets,
         generateQueryKeyForEachItem: (index) =>
             queryKeys.single.planet(index + 1),
         initialPage: 1,

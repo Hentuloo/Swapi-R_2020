@@ -25,14 +25,15 @@ const StyledLabelsList = styled(LabelsList)`
 
 export interface RelatedListsProps {
     vehicles: string[] | undefined;
+    parentId: string | number;
 }
 
-export const RalatedLists: FC<RelatedListsProps> = ({ vehicles, ...props }) => {
+export const RalatedLists: FC<RelatedListsProps> = ({ vehicles, parentId }) => {
     if (!vehicles || vehicles.length === 0) return null;
     return (
         <WithSwapiMultipleItems<SwapiVehicle>
             items={vehicles}
-            listKey="vehicles-list"
+            listKey={`character-vehicles-list-${parentId}`}
             itemKey={(id) => queryKeys.single.vehicle(id)}
             render={({ data }) => {
                 if (!data) return null;

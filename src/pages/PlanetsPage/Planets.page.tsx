@@ -1,6 +1,6 @@
 import React, { FC, Suspense } from 'react';
 import { LoadingSpiner } from 'components/LoadingSpiner';
-import { PlanetsList } from './PlanetsList.page';
+import { PlanetsList } from './PlanetsList';
 
 export interface PlanetsProps {}
 

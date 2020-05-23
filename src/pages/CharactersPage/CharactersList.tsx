@@ -20,8 +20,8 @@ export const CharactersList: FC<CharactersListProps> = () => {
         { resolvedData, error, status },
         { nextPage, prevPage, activePage },
     ] = useSwapiList<SwapiCharacter>({
-        queryKey: (page) => queryKeys.lists.characters(page),
-        queryFunc: (page) => () => getSwapiCharacters(page),
+        queryKey: queryKeys.lists.characters,
+        queryFunc: getSwapiCharacters,
         generateQueryKeyForEachItem: (index) =>
             queryKeys.single.character(index + 1),
         initialPage: 1,

@@ -88,7 +88,7 @@ export const CharacterDetails: FC<CharacterDetailsProps> = ({
                     <span>Human</span>
                 </div>
             )}
-            <RalatedLists vehicles={vehicles} />
+            <RalatedLists vehicles={vehicles} parentId={characterId} />
         </Wrapper>
     );
 };

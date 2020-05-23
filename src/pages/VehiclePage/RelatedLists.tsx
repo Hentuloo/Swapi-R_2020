@@ -4,7 +4,6 @@ import { queryKeys } from 'config/Constants';
 import { SwapiVehicle } from 'types/swapi';
 import { WithSwapiMultipleItems } from 'providers/WithSwapiMultipleItems';
 import { LabelsList, LabelWrapper } from 'components/Lists/LabelsList';
-import { vehicleImageById } from 'assets/images/vehicles';
 import { getItemIdFromUrl } from 'config/helpers';
 import defaultCharacterImage from 'assets/images/defaultCharacter.svg';
 import { CharacterImageById } from 'assets/images/characters';
@@ -26,14 +25,15 @@ const StyledLabelsList = styled(LabelsList)`
 
 export interface RelatedListsProps {
     pilots: string[] | undefined;
+    parentId: string | number;
 }
 
-export const RalatedLists: FC<RelatedListsProps> = ({ pilots }) => {
+export const RalatedLists: FC<RelatedListsProps> = ({ pilots, parentId }) => {
     if (!pilots || pilots.length === 0) return null;
     return (
         <WithSwapiMultipleItems<SwapiVehicle>
             items={pilots}
-            listKey="vehicles-list"
+            listKey={`vehicle-pilots-list-${parentId}`}
             itemKey={(id) => queryKeys.single.vehicle(id)}
             render={({ data }) => {
                 if (!data) return null;

@@ -17,14 +17,14 @@ export const queryKeys = {
     },
     lists: {
         characters: (id: number | string) =>
-            `${queryKeys.lists.characters}/${id}`,
+            `${queryKeys.keys.characters}/${id}`,
         vehicles: (id: number | string) => `${queryKeys.keys.vehicles}/${id}`,
         planets: (id: number | string) => `${queryKeys.keys.planets}/${id}`,
         species: (id: number | string) => `${queryKeys.keys.species}/${id}`,
     },
     single: {
         character: (id: number | string) =>
-            `${queryKeys.lists.characters}-${id}`,
+            `${queryKeys.keys.characters}-${id}`,
         vehicle: (id: number | string) => `${queryKeys.keys.vehicles}-${id}`,
         planet: (id: number | string) => `${queryKeys.keys.planets}-${id}`,
         specie: (id: number | string) => `${queryKeys.keys.species}-${id}`,

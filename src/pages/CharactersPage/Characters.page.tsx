@@ -1,6 +1,6 @@
 import React, { FC, Suspense } from 'react';
 import { LoadingSpiner } from 'components/LoadingSpiner';
-import { CharactersList } from './CharactersList.page';
+import { CharactersList } from './CharactersList';
 
 export interface CharactersProps {}
 

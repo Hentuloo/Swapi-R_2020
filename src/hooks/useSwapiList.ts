@@ -7,7 +7,7 @@ import {
 import { useState, useCallback } from 'react';
 
 export interface UseSwapiListProps<Item, Response> {
-    queryFunc: (page: number) => () => Response;
+    queryFunc: (page: number) => Response;
     queryKey: (page: number) => string;
     generateQueryKeyForEachItem?: (index: number, item: Item) => string;
     initialPage?: number;
@@ -32,11 +32,10 @@ export const useSwapiList = <
     initialPage,
 }: UseSwapiListProps<Item, QueryResponse>): UseSwapiListResponse<Item> => {
     const [activePage, setPage] = useState(initialPage || 1);
-
-    const queryResponse = usePaginatedQuery(
-        queryKey(activePage),
-        queryFunc(activePage),
-        {
+    const queryResponse = usePaginatedQuery({
+        queryKey: queryKey(activePage),
+        queryFn: () => queryFunc(activePage),
+        config: {
             suspense: true,
             onSuccess: (data) => {
                 //cache fetched list
@@ -49,7 +48,7 @@ export const useSwapiList = <
                 });
             },
         },
-    );
+    });
     const prevPage = useCallback(() => {
         const { latestData } = queryResponse;
         setPage((old) => (!latestData || !latestData.previous ? old : old - 1));

@@ -30,6 +30,7 @@ export interface CharacterProps {}
 export const Character: FC<CharacterProps> = () => {
     const { goBack } = useHistory();
     const { id } = useParams();
+
     const {
         character: { data },
     } = useSingleSwapiItem({ characterId: Number(id) });

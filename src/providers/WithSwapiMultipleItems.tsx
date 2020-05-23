@@ -24,7 +24,6 @@ export const WithSwapiMultipleItems = <T extends SwapiItemType>({
     itemKey,
     render,
     opts,
-    ...props
 }: WithSwapiMultipleItemsProps<T>) => {
     const itemsWithIds = useMemo(
         () =>

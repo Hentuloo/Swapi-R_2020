@@ -50,7 +50,7 @@ export const VehicleDetails: FC<VehicleDetailsProps> = ({
                 <SmallText>Kind: </SmallText>
                 <span>{vehicle.vehicle_class}</span>
             </div>
-            <RalatedLists pilots={pilots} />
+            <RalatedLists pilots={pilots} parentId={vehicleId} />
         </Wrapper>
     );
 };

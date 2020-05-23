@@ -45,7 +45,7 @@ export const PlanetDetails: FC<PlanetDetailsProps> = ({ planet, planetId }) => {
                 <SmallText>Population: </SmallText>
                 <span>{planet.population}</span>
             </div>
-            <RalatedLists residents={residents} />
+            <RalatedLists residents={residents} parentId={planetId} />
         </Wrapper>
     );
 };
