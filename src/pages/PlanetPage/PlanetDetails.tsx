@@ -1,10 +1,14 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { queryKeys } from 'config/Constants';
 import { LabelWithImage } from 'components/LabelWithImage';
-import { SwapiSubItemsList } from 'components/Lists/SwapiSubItemsList';
 import { SwapiPlanet } from 'types/swapi';
-
+import { RalatedLists } from './RelatedLists';
+import { planetImageById } from 'assets/images/planets';
+const Wrapper = styled.div`
+    display: grid;
+    grid-row-gap: 25px;
+    align-content: center;
+`;
 const CircledLabel = styled(LabelWithImage)`
     width: 100%;
     max-width: 300px;
@@ -23,25 +27,25 @@ const SmallText = styled.span`
 `;
 export interface PlanetDetailsProps {
     planet: SwapiPlanet;
+    planetId: number | string;
 }
 
-export const PlanetDetails: FC<PlanetDetailsProps> = ({ planet }) => {
+export const PlanetDetails: FC<PlanetDetailsProps> = ({ planet, planetId }) => {
     const { name, residents } = planet;
     return (
-        <>
-            <CircledLabel title={name} mode="CIRCLE">
+        <Wrapper>
+            <CircledLabel
+                title={name}
+                mode="CIRCLE"
+                src={planetImageById[planetId]}
+            >
                 {name}
             </CircledLabel>
             <div>
                 <SmallText>Population: </SmallText>
                 <span>{planet.population}</span>
             </div>
-            <SwapiSubItemsList
-                items={residents}
-                key="unique"
-                queryKey={(id) => queryKeys.single.character(id)}
-                to={(id) => `/characters/${id}`}
-            />
-        </>
+            <RalatedLists residents={residents} />
+        </Wrapper>
     );
 };

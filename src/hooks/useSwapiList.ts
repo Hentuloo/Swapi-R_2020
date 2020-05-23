@@ -37,7 +37,7 @@ export const useSwapiList = <
         queryKey(activePage),
         queryFunc(activePage),
         {
-            // suspense: true,
+            suspense: true,
             onSuccess: (data) => {
                 //cache fetched list
                 if (!generateQueryKeyForEachItem) return;

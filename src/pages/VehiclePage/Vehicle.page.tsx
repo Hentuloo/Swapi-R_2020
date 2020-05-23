@@ -1,13 +1,15 @@
 import React, { FC, Suspense } from 'react';
 import styled from 'styled-components';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { useSingleSwapiItem } from 'hooks/useSingleSwapiItem';
-import { CharacterDetails } from './CharacterDetails';
+import { VehicleDetails } from './VehicleDetails';
 import { LoadingSpiner } from 'components/LoadingSpiner';
+import { ClearButton } from 'components/ClearButton';
 
 const Wrapper = styled.div`
     width: 90%;
-    max-width: 800px;
+    min-height: 90vh;
+    max-width: 1000px;
     display: grid;
     grid-row-gap: 25px;
     align-content: center;
@@ -23,21 +25,22 @@ const Wrapper = styled.div`
         padding-right: 300px;
     }
 `;
+export interface VehicleProps {}
 
-export interface CharacterProps {}
-
-export const Character: FC<CharacterProps> = () => {
+export const Vehicle: FC<VehicleProps> = () => {
+    const { goBack } = useHistory();
     const { id } = useParams();
     const {
-        character: { data },
-    } = useSingleSwapiItem({ characterId: Number(id) });
+        vehicle: { data },
+    } = useSingleSwapiItem({ vehicleId: Number(id) });
 
     if (!data) return null;
     return (
         <Wrapper>
             <Suspense fallback={<LoadingSpiner />}>
-                <CharacterDetails character={data} />
+                <VehicleDetails vehicle={data} vehicleId={id} />
             </Suspense>
+            <ClearButton onClick={goBack}>Go back</ClearButton>
         </Wrapper>
     );
 };

@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useImage } from 'react-image';
+import defaultCharacterImage from 'assets/images/defaultCharacter.svg';
 
 export type LabelMode = 'SQUARE' | 'CIRCLE';
 
@@ -66,7 +67,7 @@ export interface LabelWithImageProps {
 
 export const LabelWithImage: FC<LabelWithImageProps> = ({
     children,
-    src = 'https://source.unsplash.com/random/400x550',
+    src = defaultCharacterImage,
     title,
     alt,
     to,

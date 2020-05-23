@@ -1,9 +1,15 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { queryKeys } from 'config/Constants';
 import { LabelWithImage } from 'components/LabelWithImage';
-import { SwapiSubItemsList } from 'components/Lists/SwapiSubItemsList';
 import { SwapiVehicle } from 'types/swapi';
+import { RalatedLists } from './RelatedLists';
+import { vehicleImageById } from 'assets/images/vehicles';
+
+const Wrapper = styled.div`
+    display: grid;
+    grid-row-gap: 25px;
+    align-content: center;
+`;
 
 const CircledLabel = styled(LabelWithImage)`
     width: 100%;
@@ -23,25 +29,28 @@ const SmallText = styled.span`
 `;
 export interface VehicleDetailsProps {
     vehicle: SwapiVehicle;
+    vehicleId: number | string;
 }
 
-export const VehicleDetails: FC<VehicleDetailsProps> = ({ vehicle }) => {
+export const VehicleDetails: FC<VehicleDetailsProps> = ({
+    vehicle,
+    vehicleId,
+}) => {
     const { name, pilots } = vehicle;
     return (
-        <>
-            <CircledLabel title={name} mode="CIRCLE">
+        <Wrapper>
+            <CircledLabel
+                title={name}
+                mode="CIRCLE"
+                src={vehicleImageById[vehicleId]}
+            >
                 {name}
             </CircledLabel>
             <div>
                 <SmallText>Kind: </SmallText>
                 <span>{vehicle.vehicle_class}</span>
             </div>
-            <SwapiSubItemsList
-                items={pilots}
-                key="unique"
-                queryKey={(id) => queryKeys.single.character(id)}
-                to={(id) => `/characters/${id}`}
-            />
-        </>
+            <RalatedLists pilots={pilots} />
+        </Wrapper>
     );
 };

@@ -1,15 +1,16 @@
 import React, { FC, Suspense } from 'react';
 import styled from 'styled-components';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { useSingleSwapiItem } from 'hooks/useSingleSwapiItem';
-import { PlanetDetails } from './PlanetDetails';
+import { CharacterDetails } from './CharacterDetails';
 import { LoadingSpiner } from 'components/LoadingSpiner';
+import { ClearButton } from 'components/ClearButton';
 
 const Wrapper = styled.div`
     width: 90%;
-    max-width: 800px;
+    min-height: 90vh;
+    max-width: 1000px;
     display: grid;
-    grid-row-gap: 25px;
     align-content: center;
     margin: 0px auto;
     text-align: center;
@@ -23,20 +24,23 @@ const Wrapper = styled.div`
         padding-right: 300px;
     }
 `;
-export interface PlanetProps {}
 
-export const Planet: FC<PlanetProps> = () => {
+export interface CharacterProps {}
+
+export const Character: FC<CharacterProps> = () => {
+    const { goBack } = useHistory();
     const { id } = useParams();
     const {
-        planet: { data },
-    } = useSingleSwapiItem({ planetId: Number(id) });
+        character: { data },
+    } = useSingleSwapiItem({ characterId: Number(id) });
 
     if (!data) return null;
     return (
         <Wrapper>
             <Suspense fallback={<LoadingSpiner />}>
-                <PlanetDetails planet={data} />{' '}
+                <CharacterDetails character={data} characterId={id} />
             </Suspense>
+            <ClearButton onClick={goBack}>Go back</ClearButton>
         </Wrapper>
     );
 };

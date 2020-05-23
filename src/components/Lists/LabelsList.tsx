@@ -21,9 +21,14 @@ export interface LabelsListProps {
 export const LabelsList: FC<LabelsListProps> = ({ items, ...props }) => {
     return (
         <Wrapper {...props}>
-            {items.map(({ title, image, to, id }) => (
+            {items.map(({ title, image, to, id, defaultImage }) => (
                 <LabelWrapper key={id}>
-                    <LabelWithImage to={to} src={image} title={title}>
+                    <LabelWithImage
+                        to={to}
+                        src={image}
+                        title={title}
+                        defaultImage={defaultImage}
+                    >
                         {title}
                     </LabelWithImage>
                 </LabelWrapper>

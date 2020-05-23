@@ -1,12 +1,18 @@
 import React, { FC, useMemo } from 'react';
 import styled from 'styled-components';
 import { getItemIdFromUrl } from 'config/helpers';
-import { queryKeys } from 'config/Constants';
 import { LabelWithImage } from 'components/LabelWithImage';
-import { SwapiSubItemsList } from 'components/Lists/SwapiSubItemsList';
 import { useSingleSwapiItem } from 'hooks/useSingleSwapiItem';
 import { SwapiCharacter } from 'types/swapi';
+import { RalatedLists } from './RelatedLists';
+import { CharacterImageById } from 'assets/images/characters';
+import { planetImageById } from 'assets/images/planets';
 
+const Wrapper = styled.div`
+    display: grid;
+    grid-row-gap: 25px;
+    align-content: center;
+`;
 const CircledLabel = styled(LabelWithImage)`
     width: 100%;
     max-width: 300px;
@@ -23,11 +29,16 @@ const SmallText = styled.span`
     font-weight: ${({ theme }) => theme.fw[0]};
     font-size: ${({ theme }) => theme.fs.xxs};
 `;
+
 export interface CharacterDetailsProps {
     character: SwapiCharacter;
+    characterId: number | string;
 }
 
-export const CharacterDetails: FC<CharacterDetailsProps> = ({ character }) => {
+export const CharacterDetails: FC<CharacterDetailsProps> = ({
+    character,
+    characterId,
+}) => {
     const planetId = useMemo(
         () => character && getItemIdFromUrl(character.homeworld),
         [character],
@@ -47,12 +58,20 @@ export const CharacterDetails: FC<CharacterDetailsProps> = ({ character }) => {
 
     const { name, vehicles } = character;
     return (
-        <>
-            <CircledLabel title={name} mode="CIRCLE">
+        <Wrapper>
+            <CircledLabel
+                title={name}
+                mode="CIRCLE"
+                src={CharacterImageById[characterId]}
+            >
                 {name}
             </CircledLabel>
             {planetData && (
-                <CircledLabel to={`/planets/${planetId}`} mode="CIRCLE">
+                <CircledLabel
+                    to={`/planets/${planetId}`}
+                    mode="CIRCLE"
+                    src={planetImageById[planetId]}
+                >
                     <SmallText>Homeworld: </SmallText>
                     {planetData.name}
                 </CircledLabel>
@@ -69,12 +88,7 @@ export const CharacterDetails: FC<CharacterDetailsProps> = ({ character }) => {
                     <span>Human</span>
                 </div>
             )}
-            <SwapiSubItemsList
-                items={vehicles}
-                key="unique"
-                queryKey={(id) => queryKeys.single.vehicle(id)}
-                to={(id) => `/vehicles/${id}`}
-            />
-        </>
+            <RalatedLists vehicles={vehicles} />
+        </Wrapper>
     );
 };

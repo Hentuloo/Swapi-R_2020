@@ -1,16 +1,9 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import { ClearButton } from './ClearButton';
 
 const Wrapper = styled.div``;
 
-export const Button = styled.button`
-    border: none;
-    background-color: transparent;
-    color: ${({ theme }) => theme.color.white[0]};
-    text-transform: uppercase;
-    text-decoration: underline;
-    padding: 10px 10px;
-`;
 export const CenteredText = styled.span``;
 
 export interface PaginationButtonsProps {
@@ -29,14 +22,14 @@ export const PaginationButtons: FC<PaginationButtonsProps> = ({
 }) => {
     return (
         <Wrapper {...props}>
-            {prev && <Button onClick={prev}>Prev</Button>}
+            {prev && <ClearButton onClick={prev}>Prev</ClearButton>}
             {active && (
                 <CenteredText>
                     {active}
                     {maxPage && `/${maxPage}`}
                 </CenteredText>
             )}
-            {next && <Button onClick={next}>next</Button>}
+            {next && <ClearButton onClick={next}>next</ClearButton>}
         </Wrapper>
     );
 };
