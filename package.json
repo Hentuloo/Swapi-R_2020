@@ -13,6 +13,7 @@
         "@types/react-router-dom": "^5.1.5",
         "@types/styled-components": "^5.1.0",
         "eslint-plugin-react-hooks": "0.0.0-33c3af284",
+        "gsap": "^3.2.6",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
         "react-image": "^4.0.0",

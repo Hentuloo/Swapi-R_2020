@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useImage } from 'react-image';
 import defaultCharacterImage from 'assets/images/defaultCharacter.svg';
+import { usePerspectiveAnimation } from 'hooks/usePerspectiveAnimation';
 
 export type LabelMode = 'SQUARE' | 'CIRCLE';
 
@@ -13,7 +14,7 @@ interface ComponentModeProps {
 export const Wrapper = styled.div<ComponentModeProps>`
     position: relative;
     display: block;
-    font-size: ${({ theme }) => theme.fs.l};
+
     color: ${({ theme }) => theme.color.white[0]};
     text-decoration: none;
     border-radius: 31px;
@@ -64,6 +65,7 @@ export interface LabelWithImageProps {
     mode?: LabelMode;
     defaultImage?: string;
     suspense?: boolean;
+    perspectiveAnimation?: boolean;
 }
 
 export const LabelWithImage: FC<LabelWithImageProps> = ({
@@ -75,8 +77,10 @@ export const LabelWithImage: FC<LabelWithImageProps> = ({
     defaultImage,
     mode = 'SQUARE',
     suspense = false,
+    perspectiveAnimation = false,
     ...props
 }) => {
+    const perspectiveAnimRef = usePerspectiveAnimation<HTMLDivElement>(7);
     const { src: suspendedSrc } = useImage({
         srcList: src,
         useSuspense: suspense,
@@ -91,6 +95,9 @@ export const LabelWithImage: FC<LabelWithImageProps> = ({
 
     return (
         <Wrapper
+            ref={(ref: any) =>
+                perspectiveAnimation && (perspectiveAnimRef.current = ref)
+            }
             {...props}
             as={to ? Link : 'div'}
             to={to}

@@ -42,6 +42,7 @@ export const PlanetsList: FC<PlanetsListProps> = ({ ...props }) => {
                     src: images[id] || defaultCharacterImage,
                     to: `/planets/${id}`,
                     suspense: true,
+                    perspectiveAnimation: true,
                 };
             },
         );

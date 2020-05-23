@@ -51,6 +51,7 @@ export const RalatedLists: FC<RelatedListsProps> = ({ pilots, parentId }) => {
                             to: `/characters/${id}`,
                             defaultImage: defaultCharacterImage,
                             suspense: true,
+                            perspectiveAnimation: true,
                         };
                     });
                     return <StyledLabelsList items={items} />;

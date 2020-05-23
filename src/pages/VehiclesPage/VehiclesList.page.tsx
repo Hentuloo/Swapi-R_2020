@@ -42,6 +42,7 @@ export const VehiclesList: FC<VehiclesListProps> = ({ ...props }) => {
                     src: images[id] || defaultCharacterImage,
                     to: `/vehicles/${id}`,
                     suspense: true,
+                    perspectiveAnimation: true,
                 };
             },
         );

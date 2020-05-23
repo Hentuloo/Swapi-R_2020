@@ -54,6 +54,7 @@ export const RalatedLists: FC<RelatedListsProps> = ({
                             to: `/characters/${id}`,
                             defaultImage: defaultCharacterImage,
                             suspense: true,
+                            perspectiveAnimation: true,
                         };
                     });
                     return <StyledLabelsList items={items} />;

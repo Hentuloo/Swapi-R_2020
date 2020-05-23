@@ -40,6 +40,7 @@ export const CharactersList: FC<CharactersListProps> = () => {
                     to: `/characters/${id}`,
                     defaultImage: defaultCharacterImage,
                     suspense: true,
+                    perspectiveAnimation: true,
                 };
             },
         );
