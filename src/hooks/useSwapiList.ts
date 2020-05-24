@@ -3,14 +3,19 @@ import {
     queryCache,
     usePaginatedQuery,
     PaginatedQueryResult,
+    BaseQueryOptions,
 } from 'react-query';
 import { useState, useCallback } from 'react';
 
-export interface UseSwapiListProps<Item, Response> {
+export interface UseSwapiListProps<
+    Item,
+    Response extends Promise<SwapiList<Item>> = Promise<SwapiList<Item>>
+> {
     queryFunc: (page: number) => Response;
     queryKey: (page: number) => string;
     generateQueryKeyForEachItem?: (index: number, item: Item) => string;
     initialPage?: number;
+    opts?: BaseQueryOptions;
 }
 export interface PaginationInterface {
     prevPage: () => void;
@@ -30,13 +35,13 @@ export const useSwapiList = <
     queryKey,
     generateQueryKeyForEachItem,
     initialPage,
+    opts = { suspense: true },
 }: UseSwapiListProps<Item, QueryResponse>): UseSwapiListResponse<Item> => {
     const [activePage, setPage] = useState(initialPage || 1);
     const queryResponse = usePaginatedQuery({
         queryKey: queryKey(activePage),
         queryFn: () => queryFunc(activePage),
         config: {
-            suspense: true,
             onSuccess: (data) => {
                 //cache fetched list
                 if (!generateQueryKeyForEachItem) return;
@@ -47,6 +52,7 @@ export const useSwapiList = <
                     );
                 });
             },
+            ...opts,
         },
     });
     const prevPage = useCallback(() => {

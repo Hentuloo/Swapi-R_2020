@@ -1,8 +1,6 @@
 import React from 'react';
-import { render, wait } from 'tests/render';
+import { render } from 'tests/render';
 import { LabelWithImage } from 'components/LabelWithImage';
-
-const imageElementId = 'LabelWithImage/image';
 
 describe('LabelWithImage component', () => {
     it('snapshot', () => {
@@ -32,4 +30,5 @@ describe('LabelWithImage component', () => {
 
         expect(wrapperNodeName).toBe('A');
     });
+    // TO-DO: should render default image
 });
