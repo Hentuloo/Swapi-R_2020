@@ -2,7 +2,7 @@ const theme = {
     color: {
         brand: ['#F4D327'],
         white: ['rgb(255, 255, 255)', 'rgba(225, 225, 225, 1)'],
-        black: ['#000', '#2B2B2B', '#323232'],
+        black: ['#000', '#2E2E2E'],
         gray: ['#4A4A4A'],
     },
     mediaQuery: {

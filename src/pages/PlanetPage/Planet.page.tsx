@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Redirect } from 'react-router-dom';
 import { useSingleSwapiItem } from 'hooks/useSingleSwapiItem';
 import { PlanetDetails } from './PlanetDetails';
 import { ClearButton } from 'components/ClearButton';
@@ -33,7 +33,9 @@ export const Planet: FC<PlanetProps> = () => {
         planet: { data },
     } = useSingleSwapiItem({ planetId: Number(id) });
 
+    if (!Number(id) || (data && data.detail)) return <Redirect to="/404" />;
     if (!data) return null;
+
     return (
         <Wrapper>
             <PlanetDetails planet={data} planetId={id} />

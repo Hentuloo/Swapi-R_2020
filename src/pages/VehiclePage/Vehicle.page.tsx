@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Redirect } from 'react-router-dom';
 import { useSingleSwapiItem } from 'hooks/useSingleSwapiItem';
 import { VehicleDetails } from './VehicleDetails';
 import { ClearButton } from 'components/ClearButton';
@@ -33,7 +33,9 @@ export const Vehicle: FC<VehicleProps> = () => {
         vehicle: { data },
     } = useSingleSwapiItem({ vehicleId: Number(id) });
 
+    if (!Number(id) || (data && data.detail)) return <Redirect to="/404" />;
     if (!data) return null;
+
     return (
         <Wrapper>
             <VehicleDetails vehicle={data} vehicleId={id} />

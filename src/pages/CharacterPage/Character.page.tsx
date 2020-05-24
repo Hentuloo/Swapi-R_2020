@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Redirect } from 'react-router-dom';
 import { useSingleSwapiItem } from 'hooks/useSingleSwapiItem';
 import { CharacterDetails } from './CharacterDetails';
 import { ClearButton } from 'components/ClearButton';
@@ -29,12 +29,13 @@ export interface CharacterProps {}
 export const Character: FC<CharacterProps> = () => {
     const { goBack } = useHistory();
     const { id } = useParams();
-
     const {
         character: { data },
     } = useSingleSwapiItem({ characterId: Number(id) });
 
+    if (!Number(id) || (data && data.detail)) return <Redirect to="/404" />;
     if (!data) return null;
+
     return (
         <Wrapper>
             <CharacterDetails character={data} characterId={id} />

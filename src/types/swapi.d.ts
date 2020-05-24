@@ -14,6 +14,7 @@ export type SwapiItemType =
     | SwapiPlanet;
 
 export interface SwapiCharacter {
+    detail: string | undefined;
     title: undefined;
     name: string;
     birth_year: string;
@@ -33,6 +34,7 @@ export interface SwapiCharacter {
     edited: Date;
 }
 export interface SwapiFilm {
+    detail: string | undefined;
     name: undefined;
     title: string;
     episode_id: number;
@@ -50,6 +52,7 @@ export interface SwapiFilm {
     edited: Date;
 }
 export interface SwapiStarship {
+    detail: string | undefined;
     title: undefined;
     name: string;
     model: string;
@@ -71,6 +74,7 @@ export interface SwapiStarship {
     edited: Date;
 }
 export interface SwapiVehicle {
+    detail: string | undefined;
     title: undefined;
     name: string;
     model: string;
@@ -90,6 +94,7 @@ export interface SwapiVehicle {
     edited: Date;
 }
 export interface SwapiSpecies {
+    detail: string | undefined;
     title: undefined;
     name: string;
     classification: string;
@@ -108,6 +113,7 @@ export interface SwapiSpecies {
     edited: Date;
 }
 export interface SwapiPlanet {
+    detail: string | undefined;
     title: undefined;
     name: string;
     diameter: string;
