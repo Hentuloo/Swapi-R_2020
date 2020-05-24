@@ -4,9 +4,8 @@ import { queryKeys } from 'config/Constants';
 import { SwapiVehicle } from 'types/swapi';
 import { WithSwapiMultipleItems } from 'providers/WithSwapiMultipleItems';
 import { LabelsList, LabelWrapper } from 'components/Lists/LabelsList';
-import { getItemIdFromUrl } from 'config/helpers';
+import { getItemIdFromUrl, getCharacterImageById } from 'config/helpers';
 import defaultCharacterImage from 'assets/images/defaultCharacter.svg';
-import { CharacterImageById } from 'assets/images/characters';
 import { LoadingSpiner } from 'components/LoadingSpiner';
 
 const StyledLabelsList = styled(LabelsList)`
@@ -49,8 +48,7 @@ export const RalatedLists: FC<RelatedListsProps> = ({
                         return {
                             id,
                             title: name,
-                            src:
-                                CharacterImageById[id] || defaultCharacterImage,
+                            src: getCharacterImageById(id),
                             to: `/characters/${id}`,
                             defaultImage: defaultCharacterImage,
                             suspense: true,

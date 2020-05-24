@@ -1,12 +1,14 @@
 import React, { FC, useMemo } from 'react';
 import styled from 'styled-components';
-import { getItemIdFromUrl } from 'config/helpers';
+import {
+    getItemIdFromUrl,
+    getPlanetsImageById,
+    getCharacterImageById,
+} from 'config/helpers';
 import { LabelWithImage } from 'components/LabelWithImage';
 import { useSingleSwapiItem } from 'hooks/useSingleSwapiItem';
 import { SwapiCharacter } from 'types/swapi';
 import { RalatedLists } from './RelatedLists';
-import { CharacterImageById } from 'assets/images/characters';
-import { planetImageById } from 'assets/images/planets';
 
 const Wrapper = styled.div`
     display: grid;
@@ -62,7 +64,7 @@ export const CharacterDetails: FC<CharacterDetailsProps> = ({
             <CircledLabel
                 title={name}
                 mode="CIRCLE"
-                src={CharacterImageById[characterId]}
+                src={getCharacterImageById(characterId)}
             >
                 {name}
             </CircledLabel>
@@ -70,7 +72,7 @@ export const CharacterDetails: FC<CharacterDetailsProps> = ({
                 <CircledLabel
                     to={`/planets/${planetId}`}
                     mode="CIRCLE"
-                    src={planetImageById[planetId]}
+                    src={getPlanetsImageById(planetId)}
                 >
                     <SmallText>Homeworld: </SmallText>
                     {planetData.name}

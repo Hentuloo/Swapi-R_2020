@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { LabelWithImage } from 'components/LabelWithImage';
 import { SwapiVehicle } from 'types/swapi';
 import { RalatedLists } from './RelatedLists';
-import { vehicleImageById } from 'assets/images/vehicles';
+import { getVehicleImageById } from 'config/helpers';
 
 const Wrapper = styled.div`
     display: grid;
@@ -42,7 +42,7 @@ export const VehicleDetails: FC<VehicleDetailsProps> = ({
             <CircledLabel
                 title={name}
                 mode="CIRCLE"
-                src={vehicleImageById[vehicleId]}
+                src={getVehicleImageById(vehicleId)}
             >
                 {name}
             </CircledLabel>

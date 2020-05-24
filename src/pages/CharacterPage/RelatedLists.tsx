@@ -8,8 +8,7 @@ import {
     LabelWrapper,
     LabelsListItem,
 } from 'components/Lists/LabelsList';
-import { vehicleImageById } from 'assets/images/vehicles';
-import { getItemIdFromUrl } from 'config/helpers';
+import { getItemIdFromUrl, getVehicleImageById } from 'config/helpers';
 import defaultCharacterImage from 'assets/images/defaultCharacter.svg';
 import { LoadingSpiner } from 'components/LoadingSpiner';
 
@@ -52,9 +51,7 @@ export const RalatedLists: FC<RelatedListsProps> = ({ vehicles, parentId }) => {
                             return {
                                 id,
                                 title: name,
-                                src:
-                                    vehicleImageById[id] ||
-                                    defaultCharacterImage,
+                                src: getVehicleImageById(id),
                                 to: `/vehicles/${id}`,
                                 suspense: true,
                                 defaultImage: defaultCharacterImage,

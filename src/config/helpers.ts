@@ -7,6 +7,16 @@ import {
     SwapiSpecies,
 } from 'types/swapi';
 
+const charactersImagesPath = '/assets/images/characters/';
+export const getCharacterImageById = (id: string | number) =>
+    `${charactersImagesPath}${id}.jpg`;
+const vehiclesImagesPath = '/assets/images/vehicles/';
+export const getVehicleImageById = (id: string | number) =>
+    `${vehiclesImagesPath}${id}.jpg`;
+const planetsImagesPath = '/assets/images/planets/';
+export const getPlanetsImageById = (id: string | number) =>
+    `${planetsImagesPath}${id}.jpg`;
+
 export const api = async <Response>(...args: any[]): Promise<Response> => {
     const res = await fetch(...args);
     return await res.json();

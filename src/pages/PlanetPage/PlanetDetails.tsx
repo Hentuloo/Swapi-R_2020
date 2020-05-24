@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { LabelWithImage } from 'components/LabelWithImage';
 import { SwapiPlanet } from 'types/swapi';
 import { RalatedLists } from './RelatedLists';
-import { planetImageById } from 'assets/images/planets';
+import { getPlanetsImageById } from 'config/helpers';
 const Wrapper = styled.div`
     display: grid;
     grid-row-gap: 25px;
@@ -37,7 +37,7 @@ export const PlanetDetails: FC<PlanetDetailsProps> = ({ planet, planetId }) => {
             <CircledLabel
                 title={name}
                 mode="CIRCLE"
-                src={planetImageById[planetId]}
+                src={getPlanetsImageById(planetId)}
             >
                 {name}
             </CircledLabel>
