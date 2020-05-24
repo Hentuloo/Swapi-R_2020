@@ -82,16 +82,9 @@ export const LabelWithImage: FC<LabelWithImageProps> = ({
 }) => {
     const perspectiveAnimRef = usePerspectiveAnimation<HTMLDivElement>(7);
     const { src: suspendedSrc } = useImage({
-        srcList: src,
+        srcList: [src, defaultImage || defaultCharacterImage],
         useSuspense: suspense,
     });
-
-    const handleError = ({
-        currentTarget,
-    }: React.SyntheticEvent<HTMLImageElement, Event>) => {
-        if (!defaultImage) return;
-        currentTarget.src = defaultImage || '';
-    };
 
     return (
         <Wrapper
@@ -105,7 +98,7 @@ export const LabelWithImage: FC<LabelWithImageProps> = ({
             mode={mode}
         >
             <ImageWrapper mode={mode}>
-                <Image src={suspendedSrc} alt={alt} onError={handleError} />
+                <Image src={suspendedSrc} alt={alt} />
             </ImageWrapper>
             <ContentWrapper mode={mode}>{children}</ContentWrapper>
         </Wrapper>

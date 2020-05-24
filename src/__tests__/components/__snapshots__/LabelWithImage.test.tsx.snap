@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LabelWithImage component snapshot 1`] = `
+<div
+  class="sc-AxjAm ZveYB"
+  mode="SQUARE"
+>
+  <div
+    class="sc-AxiKw cYfdGU"
+    mode="SQUARE"
+  >
+    <img
+      class="sc-AxhCb cwNtVx"
+    />
+  </div>
+  <div
+    class="sc-AxirZ ULhtM"
+    mode="SQUARE"
+  />
+</div>
+`;
