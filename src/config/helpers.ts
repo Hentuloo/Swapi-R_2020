@@ -26,19 +26,6 @@ export const getItemIdFromUrl = (url: string) => {
     return Number(urlParts[urlParts.length - 1]);
 };
 
-export const importAll = (
-    r: __WebpackModuleApi.RequireContext,
-    withoutExtension?: boolean,
-) => {
-    const keys = r.keys();
-    const files: { [key: string]: string } = {};
-    keys.forEach((key) => {
-        const fileName = key.slice(2, withoutExtension ? -4 : key.length);
-        files[fileName] = r(key);
-    });
-    return files;
-};
-
 export const getSwapiCharacters = (id: number) =>
     api<SwapiList<SwapiCharacter>>(`${Constants.swapiUrl}/people/?page=${id}`);
 export const getSwapiCharacter = (id: number) =>

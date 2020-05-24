@@ -81,12 +81,10 @@ export const LabelWithImage: FC<LabelWithImageProps> = ({
     ...props
 }) => {
     const perspectiveAnimRef = usePerspectiveAnimation<HTMLDivElement>(7);
-    console.log(src);
     const { src: suspendedSrc } = useImage({
         srcList: [src, defaultImage || defaultCharacterImage],
         useSuspense: suspense,
     });
-
     return (
         <Wrapper
             ref={(ref: any) =>

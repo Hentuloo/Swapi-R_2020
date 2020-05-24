@@ -48,9 +48,10 @@ export const LoadingSpiner: FC<LoadingSpinerProps> = ({
     ...props
 }) => {
     return (
-        <Wrapper centered={centered} {...props}>
+        <Wrapper centered={centered} {...props} data-testid="loadingSpiner">
             <HeadImage src={droidHeadSvg} />
             <SpinerImage src={droidBodySVG} />
+            <span className="sr-only">Loading...</span>
         </Wrapper>
     );
 };

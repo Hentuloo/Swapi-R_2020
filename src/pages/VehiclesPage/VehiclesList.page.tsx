@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import styled from 'styled-components';
 import { useSwapiList } from 'hooks/useSwapiList';
 import { queryKeys, swapiMaxResultsPerPage } from 'config/Constants';
@@ -30,22 +30,25 @@ export const VehiclesList: FC<VehiclesListProps> = ({ ...props }) => {
         initialPage: 1,
     });
 
-    const vehicles =
-        resolvedData &&
-        resolvedData.results.map(
-            ({ name, url }): LabelsListItem => {
-                const id = getItemIdFromUrl(url);
-                return {
-                    id,
-                    title: name,
-                    src: getVehicleImageById(id),
-                    defaultImage: defaultCharacterImage,
-                    to: `/vehicles/${id}`,
-                    suspense: true,
-                    perspectiveAnimation: true,
-                };
-            },
-        );
+    const vehicles = useMemo(
+        () =>
+            resolvedData &&
+            resolvedData.results.map(
+                ({ name, url }): LabelsListItem => {
+                    const id = getItemIdFromUrl(url);
+                    return {
+                        id,
+                        title: name,
+                        src: getVehicleImageById(id),
+                        defaultImage: defaultCharacterImage,
+                        to: `/vehicles/${id}`,
+                        suspense: true,
+                        perspectiveAnimation: true,
+                    };
+                },
+            ),
+        [resolvedData],
+    );
 
     return (
         <Wrapper {...props}>

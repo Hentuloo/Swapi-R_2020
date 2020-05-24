@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import styled from 'styled-components';
 import { useSwapiList } from 'hooks/useSwapiList';
 import { queryKeys, swapiMaxResultsPerPage } from 'config/Constants';
@@ -30,21 +30,25 @@ export const PlanetsList: FC<PlanetsListProps> = ({ ...props }) => {
         initialPage: 1,
     });
 
-    const planets =
-        resolvedData &&
-        resolvedData.results.map(
-            ({ name, url }): LabelsListItem => {
-                const id = getItemIdFromUrl(url);
-                return {
-                    id,
-                    title: name,
-                    src: getPlanetsImageById(id),
-                    to: `/planets/${id}`,
-                    suspense: true,
-                    perspectiveAnimation: true,
-                };
-            },
-        );
+    const planets = useMemo(
+        () =>
+            resolvedData &&
+            resolvedData.results.map(
+                ({ name, url }): LabelsListItem => {
+                    const id = getItemIdFromUrl(url);
+                    return {
+                        id,
+                        title: name,
+                        src: getPlanetsImageById(id),
+                        to: `/planets/${id}`,
+                        suspense: true,
+                        perspectiveAnimation: true,
+                        defaultImage: defaultCharacterImage,
+                    };
+                },
+            ),
+        [resolvedData],
+    );
 
     return (
         <Wrapper {...props}>
