@@ -40,7 +40,7 @@ export const RalatedLists: FC<RelatedListsProps> = ({
             <WithSwapiMultipleItems<SwapiVehicle>
                 items={residents}
                 listKey={`planet-residents-list-${parentId}`}
-                itemKey={(id) => queryKeys.single.vehicle(id)}
+                itemKey={(id) => queryKeys.single.character(id)}
                 render={({ data }) => {
                     if (!data) return null;
                     const items = data.map(({ name, url }) => {
